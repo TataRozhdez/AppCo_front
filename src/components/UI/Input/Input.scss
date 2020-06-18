@@ -1,0 +1,38 @@
+@import '../../../resources/variables.scss';
+
+.input {
+  width: 579px;
+  border: 1px solid #F1F1F1;
+  border-radius: 10px;
+  text-align: start;
+  outline: none;
+  display: flex;
+  background-color: #F1F1F1;
+  margin: 0 auto;
+  input {
+    background: #FFFFFF;
+    padding: 1.19rem;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    flex-basis: 70%;
+    &:hover {
+      background-color: #d6e6f0;
+      transition: .5s;
+    }
+  }
+  label {
+    background: $chief-color;
+    color: #FFFFFF;
+    border-radius: 8px;
+    line-height: 1.44rem;
+    font-size: 1rem;
+    padding: 16px 48px;
+    @media (max-width: $sm-screen) {
+      padding: 16px 10px;
+    }
+  }
+  @media (max-width: $sm-screen) {
+    width: auto;
+  }
+} 

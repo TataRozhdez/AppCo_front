@@ -1,0 +1,13 @@
+@import '../../resources/variables.scss';
+
+.header {
+  background-color: $chief-color;
+  width: 100%;
+  padding: 10px 0 13px 130px;
+  h1 {
+    color: #FFFFFF;
+    font-weight: normal;
+    font-size: 2.5rem;
+    line-height: 3.063rem;
+  }
+}

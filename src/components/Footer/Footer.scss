@@ -1,0 +1,16 @@
+.footer-chats {
+  background: #1C3B55;
+  color: #FFFFFF;
+  line-height: 1.44rem;
+  text-align: center;
+  padding: 14px 0px;
+  display: flex;
+  justify-content: space-around;
+  .logo-foot {
+    font-size: 1.5rem;
+    line-height: 1.813rem;
+  }
+  .foot-text {
+    font-size: 1rem;   
+  }
+}

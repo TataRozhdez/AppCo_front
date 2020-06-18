@@ -1,0 +1,32 @@
+@import '../../../resources/variables.scss';
+
+.myButton {
+  width: 154px;
+  font-size: 16px;
+  line-height: 142%;
+  background: #FFFFFF;
+  border-radius: 8px;
+  color: $chief-color;
+  font-weight: normal;
+  font-size: 1rem;
+  padding: 10px 31px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  &:hover {
+    background-color: #d6e6f0;
+    transition: .5s;
+  }
+  @media (max-width: $md-screen) {
+    position: absolute;
+    top: 13vw;
+    left: 50vw;
+    padding: .8vw .6vw;
+  }
+  @media (max-width: $sm-screen) {
+    width: 110px;
+  }
+  @media (max-width: $xs-screen) {
+    left: 63.5vw;
+  }
+}

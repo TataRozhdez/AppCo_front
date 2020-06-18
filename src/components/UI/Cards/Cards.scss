@@ -1,0 +1,48 @@
+@import '../../../resources/variables.scss';
+
+.cards {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 5.625vw;
+  flex-wrap: wrap;
+  line-height: 1.44rem;
+  .card {
+    width: 380px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.16);
+    border-radius: 32px;
+    text-align: center;
+    margin-bottom: 2vw;
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+    img {
+      width: 106px;
+      margin: 48px 0 40px;
+      @media (max-width: $sm-screen) {
+        margin: 2.5vw 0 2.1vw;
+      }
+    }
+    h3 {
+      font-weight: 600;
+      font-size: 1.5rem;
+      line-height: 1.813rem;
+      color: #1A1A1A;
+    }
+    p {
+      font-size: 1rem;
+      color: #7E7E7E;
+      margin: 16px 0 48px;
+      @media (max-width: $sm-screen) {
+        margin: .8vw 0 2.5vw;
+      }
+    }
+    @media (max-width: $sm-screen) {
+      width: 30.8vw;
+    }
+  }
+  @media (max-width: $sm-screen) {
+    margin-top: 2.08vw;
+  }
+}

@@ -1,0 +1,117 @@
+@import '../../resources/variables.scss';
+
+main {
+  height: 100%;
+}
+.main_block {
+  background: no-repeat left / 100% 100% url(../../resources/images/bck_header.png);
+  color: #FFFFFF;
+  width: 100%;
+  padding-left: 130px;
+  height: 34.115vw;
+  position: relative;
+  @media (max-width: $sm-screen) {
+    height: 46.115vw;
+  }
+  h1 {
+    font-weight: normal;
+    font-size: 2.5rem;
+    line-height: 3rem;
+    padding: 1.24vw 0 2.5vw 0;
+  }
+  .main_content {
+    max-width: 30.521vw;
+    @media (max-width: $xs-screen) {
+      max-width: 50vw;
+    }
+    .title {
+      font-size: 2.5vw;
+      line-height: 3.073vw;
+      margin-bottom: 2.813vw;
+      @media (max-width: $md-screen) {
+        margin-bottom: 0;
+      }
+    }
+    .post-title {
+      overflow-wrap: normal;
+      font-weight: normal;
+      font-size: 1.25rem;
+      line-height: 142%;
+      margin-bottom: 1.667vw;
+      @media (max-width: $md-screen) {
+        margin-bottom: 0;
+        font-size: 0.8rem;
+      }
+    }
+  }
+  .mobile-image {
+    position: absolute;
+    left: 55.5vw;
+    top: 5vw;
+    img {
+      width: 16.719vw;
+    }
+    @media (max-width: $md-screen) {
+      left: 70.5vw;
+    }
+    @media (max-width: $sm-screen) {
+      left: 81.5vw;
+    }
+    @media (max-width: $xs-screen) {
+      display: none;
+    }
+  }
+  @media (max-width: $md-screen) {
+    padding-left: 6.7vw;
+  }
+}
+.center_block {
+  font-size: 2rem;
+  line-height: 2.4rem;
+  text-align: center;
+  color: #1A1A1A;
+  .first_line {
+    width: 30.208vw;
+    margin: 0 auto;
+    @media (max-width: $md-screen) {
+      width: 100%;
+    }
+  }
+  .second_line {
+    font-size: 1.25rem;
+    line-height: 142%;
+    color: #7E7E7E;
+    width: 40.625vw;
+    margin: 0 auto;
+    @media (max-width: $md-screen) {
+      width: 100%;
+    }
+  }
+
+}
+.footer {
+  width: 100%;
+  background: no-repeat left / 100% 100% url(../../resources/images/bck_footer.png);
+  display: flex;
+  flex-direction: column;
+  padding: 1vw;
+  div {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.2vw;
+    img {
+      width: 5.677vw;
+      @media (max-width: $sm-screen) {
+        width: 13vw;
+      }
+    }
+    span {
+      font-size: 1rem;
+      color: #FFFFFF;
+      @media (max-width: $sm-screen) {
+        font-size: 0.8rem;
+      }
+    }    
+  }
+}
