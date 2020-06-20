@@ -1,14 +1,12 @@
-import React from 'react'
+import React  from 'react'
 import './MyButton.scss'
 
-export default function MyButton() {
+ const MyButton = props => (
+      <button 
+        className="myButton"
+      >
+        {props.textBtn}
+      </button>
+ )
 
-  return (
-    <button 
-      className="myButton"
-    >
-      Views Stats
-    </button>
-
-  );
-}
+export default MyButton

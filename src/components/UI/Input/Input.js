@@ -1,16 +1,22 @@
 import React from 'react'
 import './Input.scss'
 
-export default function Input() {
+
+const Input = (props) => {
+  const htmlFor = `${props.type}-${Math.random()}`
+
   return (
     <div className="input">
       <input 
-        type="email" id="email"
-        pattern=".+@globex.com" 
-        placeholder="Enter your email" 
-        required 
+        type={props.type} 
+        id={htmlFor}
+        value={props.value}
+        onChange={props.onChange}
       />
-      <label htmlFor="email">Subscribe</label>
+      <label htmlFor={htmlFor}>{props.label}</label>
+      
     </div>
   )
 }
+
+export default Input

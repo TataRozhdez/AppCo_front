@@ -22,7 +22,6 @@ export default function Breadcrumb() {
               key={index}
               to={link.to} 
               exact={link.exact}
-              onClick={(e) => e.preventDefault()}
             >
               {link.label}
             </NavLink>

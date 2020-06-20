@@ -8,6 +8,7 @@ import Input from '../../components/UI/Input/Input'
 import {Link} from 'react-router-dom'
 
 export class MainPage extends Component {
+
   render() {
     return (
       <main>
@@ -19,7 +20,7 @@ export class MainPage extends Component {
               Our design projects are fresh and simple and will benefit your business greatly. Learn more about our work!
             </p>
             <Link to="/users">
-              <MyButton />
+              <MyButton textBtn="Views Stats"/>
             </Link>
           </div>
             <div className="mobile-image">
@@ -35,7 +36,10 @@ export class MainPage extends Component {
           <Cards />
         </div>
         <div className="footer">
-          <Input />
+          <Input 
+            label="Subscribe" 
+            type="email"
+          />
           <div>
             <img src={logoFoot} alt="logo_foter" />
             <span>All rights reserved by ThemeTags</span>
