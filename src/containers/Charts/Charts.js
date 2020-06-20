@@ -6,30 +6,33 @@ import Breadcrumb from '../../components/UI/Breadcrumb/Breadcrumb'
 import TableUsers from '../../components/UI/TableUsers/TableUsers'
 import Input from '../../components/UI/Input/Input'
 import MyButton from '../../components/UI/MyButton/MyButton'
-import jsonUsers from '../../users.json'
-import userJson from '../../users_statistic.json'
+import usersJson from '../../users.json'
+import userStatisticsJson from '../../users_statistic.json'
 
 
 export class Charts extends Component {
 
-  state = {
-    formSeLection: false,
-    formControls: {
-      numberId: {
-        type: 'number',
-        value: '',
-        label: 'Enter ID number'
+  constructor(props) {
+    super(props)
+    this.state = {
+      formSeLection: false,
+      formControls: {
+        numberId: {
+          type: 'number',
+          value: '',
+          label: 'Enter ID number'
+        },
+        datePick: {
+          type: 'date',
+          value: '',
+          label: 'Or enter date'
+        }
       },
-      datePick: {
-        type: 'date',
-        value: '',
-        label: 'Or enter date'
-      }
-    },
-    userFromId: {},
-    usersFromDate: {
+      userFromId: {},
+      usersFromDate: {
 
-    }
+      }
+    };
   }
 
   submitHandler = (event) => {
@@ -37,13 +40,13 @@ export class Charts extends Component {
     const formControls = this.state.formControls
 
     if (formControls.numberId.value) {
-      const userFromInput = jsonUsers.filter( e => 
+      const userFromInput = usersJson.filter( e => 
         e.id === +formControls.numberId.value
       )
 
       if (userFromInput) {
         userFromInput.map(i => {
-          const userDate = userJson.filter( e => e.user_id === i.id )
+          const userDate = userStatisticsJson.filter( e => e.user_id === i.id )
           const date = userDate.map(obj => {
             return { date: obj.date,
               clicks: obj.clicks, 
@@ -64,42 +67,18 @@ export class Charts extends Component {
           })
         })
       } 
-    } 
+    }
     
     if (formControls.datePick.value) {
-      const userFromInput = userJson.filter( e => 
-        e.date === formControls.datePick.value
-      ) 
-      console.log('userFromInput' ,userFromInput)
-      if (userFromInput) {
-        userFromInput.map(i => {
+      const usersIdByDate = userStatisticsJson
+        .filter( e => e.date === formControls.datePick.value)
+      const users = usersIdByDate.map(u => {
+        const user = usersJson.find( uj => uj.id === u.user_id);
+        return { user, data: u }
+      });
+      console.log(users);
+      this.setState({ usersFromDate: users })
 
-          let users = []
-          
-          users = users.push(jsonUsers.filter( e => e.id === i.user_id))
-
-          console.log('user', users)
-
-          // userId.map(obj => {
-          //   // console.log('o', obj)
-            
-          //   return { email: obj.email,
-          //     first_name: obj.first_name, 
-          //     gender: obj.gender,
-          //     id: obj.id,
-          //     ip_address: obj.ip_address,
-          //     last_name: obj.last_name,
-          //   }
-          // })
-    
-          return this.setState({
-            usersFromDate: {
-              date: i.date,
-              users: users
-            }
-          })
-        })
-      }
     }
   }
   
