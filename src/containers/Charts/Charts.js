@@ -3,11 +3,10 @@ import './Charts.scss'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
 import Breadcrumb from '../../components/UI/Breadcrumb/Breadcrumb'
-import TableUsers from '../../components/UI/TableUsers/TableUsers'
 import Input from '../../components/UI/Input/Input'
-import MyButton from '../../components/UI/MyButton/MyButton'
 import usersJson from '../../users.json'
 import userStatisticsJson from '../../users_statistic.json'
+import RenderTable from '../../components/UI/TableUsers/RenderTable'
 
 
 export class Charts extends Component {
@@ -24,15 +23,12 @@ export class Charts extends Component {
         },
         datePick: {
           type: 'date',
-          value: '',
+          value: '2019-10-02',
           label: 'Or enter date'
         }
       },
-      userFromId: {},
-      usersFromDate: {
-
-      }
-    };
+      usersFromInput: {}
+    }
   }
 
   submitHandler = (event) => {
@@ -40,45 +36,37 @@ export class Charts extends Component {
     const formControls = this.state.formControls
 
     if (formControls.numberId.value) {
-      const userFromInput = usersJson.filter( e => 
+      const user = usersJson
+        .filter( e => 
         e.id === +formControls.numberId.value
       )
-
-      if (userFromInput) {
-        userFromInput.map(i => {
-          const userDate = userStatisticsJson.filter( e => e.user_id === i.id )
-          const date = userDate.map(obj => {
-            return { date: obj.date,
-              clicks: obj.clicks, 
-              page_views: obj.page_views
-            }
-          })
+      .map(i => {
+        return {
+          user: i,
+          data: userStatisticsJson.find(ij => ij.user_id === i.id)
+        }
+      })
     
-          return this.setState({
-            userFromId: {
-              id: i.id,
-              email: i.email,
-              first_name: i.first_name,
-              gender: i.gender,
-              ip_address: i.ip_address,
-              last_name: i.last_name,
-              date
-            }
-          })
-        })
-      } 
+    this.setState({
+      formSeLection: true,
+      usersFromInput: user
+      })
     }
     
     if (formControls.datePick.value) {
-      const usersIdByDate = userStatisticsJson
+      const users = userStatisticsJson
         .filter( e => e.date === formControls.datePick.value)
-      const users = usersIdByDate.map(u => {
-        const user = usersJson.find( uj => uj.id === u.user_id);
-        return { user, data: u }
-      });
-      console.log(users);
-      this.setState({ usersFromDate: users })
-
+        .map(u => {
+          return {
+            user: usersJson.find(uj => uj.id === u.user_id),
+            data: u
+          }
+        });
+ 
+      this.setState({ 
+        formSeLection: true,
+        usersFromInput: users
+      })
     }
   }
   
@@ -95,14 +83,18 @@ export class Charts extends Component {
   }
 
   renderInputs() {
+
+    // const ref = React.createRef();
     return Object.keys(this.state.formControls).map((controlName, index) => {
       const control = this.state.formControls[controlName]
       return (
         <Input
           key={index}
+          // ref={ref}
           type={control.type}
           value={control.value}
           label={control.label}
+          onClick={this.submitHandler}
           onChange={event => this.onChangeHandler(event, controlName)}
         />
       )
@@ -110,29 +102,24 @@ export class Charts extends Component {
   }
 
   render() {
+
     return (
       <div className="charts">
         <Header />
         <Breadcrumb />
-        <h1>Users statistics</h1>
+        <div className="contentUsers">
+          <h1>Users statistics</h1>
+            {
+              !this.state.formSeLection ?
+                this.renderInputs() :
+                <RenderTable
+                  users={this.state.usersFromInput} 
+                  // usersStatistic={this.state.userFromDate}
+                />
+            }
+        </div>
         
-        {
-          !this.state.formSeLection ?
-            <form onSubmit={this.submitHandler}>
-              {this.renderInputs() }
-              <hr />
-              <MyButton 
-                textBtn="Submit" 
-                onClick={this.onChangeHandler}
-              />
-            </form>  :
-            <TableUsers 
-              // users={this.state.userFromId}
-              // usersStatistic={this.state.userFromDate}
-            />
-        }
-        {console.log('userFromId', this.state.userFromId)}
-        {console.log('usersFromDate', this.state.usersFromDate)}
+        {console.log('userFromId', this.state.usersFromInput)}
         <Footer />
       </div>
     )

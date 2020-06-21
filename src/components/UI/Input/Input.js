@@ -13,7 +13,7 @@ const Input = (props) => {
         value={props.value}
         onChange={props.onChange}
       />
-      <label htmlFor={htmlFor}>{props.label}</label>
+      <button onClick={props.onClick}>{props.label}</button>
       
     </div>
   )

@@ -21,18 +21,19 @@
       transition: .5s;
     }
   }
-  span {
-    color: #f01f30;
-    font-size: 1rem;
-    font-weight: bold;
-  }
-  label {
+  button {
     background: $chief-color;
     color: #FFFFFF;
+    border: none;
     border-radius: 8px;
     line-height: 1.44rem;
     font-size: 1rem;
     padding: 16px 48px;
+    width: 172px;
+    outline: none;
+    &:hover {
+      background-color: darken($chief-color, 10%);
+    }
     @media (max-width: $sm-screen) {
       padding: 16px 10px;
     }
