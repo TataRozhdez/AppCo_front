@@ -27,9 +27,27 @@ export class Charts extends Component {
           label: 'Or enter date'
         }
       },
-      usersFromInput: {}
+      usersFromInput: {
+        user: {},
+        data: {}
+      }
     }
   }
+
+  totalClick = (el) => {
+    const total = {
+      clicksTotal: 0,
+      pageViewTotal: 0
+    }
+
+    userStatisticsJson
+      .filter(j => j.user_id === el)
+      .forEach(elem => {
+        total.clicksTotal += elem.clicks
+        total.pageViewTotal += elem.page_views
+      })      
+      return total
+    }
 
   submitHandler = (event) => {
     event.preventDefault()
@@ -43,7 +61,8 @@ export class Charts extends Component {
       .map(i => {
         return {
           user: i,
-          data: userStatisticsJson.find(ij => ij.user_id === i.id)
+          data: {...userStatisticsJson.filter(ij => ij.user_id === i.id)},
+          total: this.totalClick(i.id)
         }
       })
     
@@ -59,7 +78,8 @@ export class Charts extends Component {
         .map(u => {
           return {
             user: usersJson.find(uj => uj.id === u.user_id),
-            data: u
+            data: u,
+            total: this.totalClick(u.user_id)
           }
         });
  
@@ -83,7 +103,6 @@ export class Charts extends Component {
   }
 
   renderInputs() {
-
     // const ref = React.createRef();
     return Object.keys(this.state.formControls).map((controlName, index) => {
       const control = this.state.formControls[controlName]
@@ -114,12 +133,11 @@ export class Charts extends Component {
                 this.renderInputs() :
                 <RenderTable
                   users={this.state.usersFromInput} 
-                  // usersStatistic={this.state.userFromDate}
                 />
             }
         </div>
         
-        {console.log('userFromId', this.state.usersFromInput)}
+        {console.log('userFromInput', this.state.usersFromInput)}
         <Footer />
       </div>
     )

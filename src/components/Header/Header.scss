@@ -4,10 +4,16 @@
   background-color: $chief-color;
   width: 100%;
   padding: 10px 0 13px 130px;
-  h1 {
+  a {
     color: #FFFFFF;
     font-weight: normal;
     font-size: 2.5rem;
     line-height: 3.063rem;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+      color: lighten($chief-color, 40);
+      transition: .5s;
+    }
   }
 }

@@ -6,9 +6,11 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import TablePagination from '@material-ui/core/TablePagination';
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import Paper from '@material-ui/core/Paper'
 import './RenderTable.scss'
-
 
 const headCells = [
   { id: 'id', label: 'ID' },
@@ -41,10 +43,8 @@ function EnhancedTableHead(props) {
 export default function RenderTable(props) {
   const [selected, setSelected] = React.useState([])
   const [page, setPage] = React.useState(0)
-  const [rowsPerPage, setRowsPerPage] = React.useState(5)
+  const [rowsPerPage] = React.useState(5)
   const users = props.users
-  
-  console.log('users', users)
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -70,34 +70,56 @@ export default function RenderTable(props) {
     setSelected(newSelected);
   };
 
+  function TablePaginationActions(props) {
+    const { count, page, rowsPerPage, onChangePage } = props;
+  
+    const handleBackButtonClick = (event) => {
+      onChangePage(event, page - 1);
+    };
+  
+    const handleNextButtonClick = (event) => {
+      onChangePage(event, page + 1);
+    };
+  
+  
+    return (
+      <div className="pagination">
+  
+        <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+          <KeyboardArrowRight /> 
+        </IconButton>
+        <IconButton
+          onClick={handleNextButtonClick}
+          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+          aria-label="next page"
+        >
+          <KeyboardArrowLeft /> 
+        </IconButton>
+      </div>
+    );
+  }
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
   
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  
   return (
     
     <div className="table-users">
       <Paper className="paper">
         <TableContainer>
           <Table
-            // className={classes.table}
             aria-label="table"
           >
             <EnhancedTableHead />
             <TableBody>
               {users 
-                // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
+                  const isItemSelected = isSelected(row.user.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -118,8 +140,8 @@ export default function RenderTable(props) {
                       <TableCell align="center">{row.user.gender}</TableCell>
                       <TableCell align="center">{row.user.ip_address}</TableCell>
                       
-                      <TableCell align="center">{row.total_clicks}</TableCell>
-                      <TableCell align="center">{row.total_page_views}</TableCell>
+                      <TableCell align="center">{row.total.clicksTotal}</TableCell>
+                      <TableCell align="center">{row.total.pageViewTotal}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -127,13 +149,13 @@ export default function RenderTable(props) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={10}
           component="div"
           count={50}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
+          ActionsComponent={TablePaginationActions}
         />
       </Paper>
     </div>         
