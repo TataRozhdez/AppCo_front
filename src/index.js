@@ -1,14 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './resources/index.scss';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import {BrowserRouter} from 'react-router-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './resources/index.scss'
+import App from './App'
+import * as serviceWorker from './serviceWorker'
+import {BrowserRouter} from 'react-router-dom'
+
 
 const application = (
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <App /> 
     </BrowserRouter>
   </React.StrictMode>
 )

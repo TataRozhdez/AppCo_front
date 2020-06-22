@@ -1,0 +1,14 @@
+@import '../../resources/variables.scss';
+
+.userStatistic {
+  margin: 0 130px;
+  @media (max-width: $md-screen) {
+    margin: 0 7vw;
+  }
+  h2 {
+    font-size: 2rem;
+    line-height: 2.438rem;
+    color: #1A1A1A;
+    margin-bottom: 14px;
+  }
+}

@@ -1,34 +1,36 @@
 import React from 'react';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
-import {NavLink} from 'react-router-dom'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import {NavLink} from 'react-router-dom'
 import './Breadcrumb.scss'
 
-const links = [
-  {to: '/', label: 'Main page', exact: true},
-  {to: '/users', label: 'User satistics', exact: false},
-  {to: '/user/:id', label: 'Samuel Frost', exact: false}
-]
-
-export default function Breadcrumb() {
+const Breadcrumb = (props) => {
 
   return (
     <div className="breadcrumb">
-      <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
-        {links.map((link, index) => {
-
+      <Breadcrumbs 
+        separator={<NavigateNextIcon fontSize="small" />} 
+        aria-label="breadcrumb"
+        item={NavLink}
+      >
+      
+       {props.links.map((link, index) => {
           return (
             <NavLink
               key={index}
               to={link.to} 
               exact={link.exact}
+              disabled={link.disabled}
             >
               {link.label}
             </NavLink>
           )
-
-        })}
-      </Breadcrumbs>
+        })} 
+      </ Breadcrumbs>
     </div>
-  );
+  )
 }
+
+export default Breadcrumb
+
+

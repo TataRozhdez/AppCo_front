@@ -5,10 +5,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import TablePagination from '@material-ui/core/TablePagination';
-import IconButton from '@material-ui/core/IconButton';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
+import Pagination from '@material-ui/lab/Pagination'
 import Paper from '@material-ui/core/Paper'
 import './RenderTable.scss'
 
@@ -41,73 +38,33 @@ function EnhancedTableHead(props) {
 }
 
 export default function RenderTable(props) {
-  const [selected, setSelected] = React.useState([])
+  const [selected] = React.useState([])
   const [page, setPage] = React.useState(0)
-  const [rowsPerPage] = React.useState(5)
+  const [rowsPerPage] = React.useState(50)
   const users = props.users
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    console.log('selectedIndexDEF', selectedIndex)
-
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-      console.log('selectedIndex-1', selectedIndex)
-    } else if (selectedIndex === 0) {
-      console.log('selectedIndex0', selectedIndex)
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      console.log('selectedIndex>0', selectedIndex)
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
-      );
-    }
-    setSelected(newSelected);
-  };
-
   function TablePaginationActions(props) {
-    const { count, page, rowsPerPage, onChangePage } = props;
-  
-    const handleBackButtonClick = (event) => {
-      onChangePage(event, page - 1);
-    };
-  
-    const handleNextButtonClick = (event) => {
-      onChangePage(event, page + 1);
-    };
-  
+    const handleChangePage = (event, value) => {
+      setPage(value);
+    }; 
   
     return (
       <div className="pagination">
-  
-        <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
-          <KeyboardArrowRight /> 
-        </IconButton>
-        <IconButton
-          onClick={handleNextButtonClick}
-          disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-          aria-label="next page"
-        >
-          <KeyboardArrowLeft /> 
-        </IconButton>
+        <Pagination 
+          count={Math.floor(users.length / rowsPerPage)}
+          variant="outlined" 
+          shape="rounded" 
+          rowsperpage={rowsPerPage}
+          page={page}
+          onChange={handleChangePage}
+        />
       </div>
-    );
+    )
   }
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
   
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (name) => selected.indexOf(name) !== -1
 
-  return (
-    
+  return (  
     <div className="table-users">
       <Paper className="paper">
         <TableContainer>
@@ -125,12 +82,11 @@ export default function RenderTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.user.id)}
+                      onClick={props.onRowSelect.bind(null, row)}
                       tabIndex={-1}
                       key={row.user.id}
                       selected={isItemSelected}
                     >
-              
                       <TableCell component="th" id={labelId} scope="row">
                         {row.user.id}
                       </TableCell>
@@ -145,18 +101,11 @@ export default function RenderTable(props) {
                     </TableRow>
                   );
                 })}
+                  
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={10}
-          component="div"
-          count={50}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          ActionsComponent={TablePaginationActions}
-        />
+        {TablePaginationActions()}
       </Paper>
     </div>         
   )

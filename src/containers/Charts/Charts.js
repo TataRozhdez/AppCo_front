@@ -7,12 +7,19 @@ import Input from '../../components/UI/Input/Input'
 import usersJson from '../../users.json'
 import userStatisticsJson from '../../users_statistic.json'
 import RenderTable from '../../components/UI/TableUsers/RenderTable'
+import { Redirect } from 'react-router'
 
+const links = [
+  {to: '/', label: 'Main page', exact: true},
+  {to: '/users', label: 'User satistics', exact: false}
+]
 
 export class Charts extends Component {
 
   constructor(props) {
     super(props)
+    this.onRowSelect = this.onRowSelect.bind(this)
+
     this.state = {
       formSeLection: false,
       formControls: {
@@ -120,24 +127,40 @@ export class Charts extends Component {
     })
   }
 
-  render() {
+  onRowSelect = row => {
 
+    this.setState({
+      row: row
+    })
+  }
+
+  render() {
     return (
       <div className="charts">
         <Header />
-        <Breadcrumb />
+        <Breadcrumb 
+          links={links}
+        />
         <div className="contentUsers">
           <h1>Users statistics</h1>
             {
-              !this.state.formSeLection ?
-                this.renderInputs() :
-                <RenderTable
-                  users={this.state.usersFromInput} 
-                />
+              !this.state.formSeLection 
+                ? this.renderInputs() 
+                : <RenderTable
+                    users={this.state.usersFromInput}
+                    onRowSelect={this.onRowSelect} 
+                  />
             }
-        </div>
-        
-        {console.log('userFromInput', this.state.usersFromInput)}
+        </div> 
+        { this.state.row
+            ? <Redirect
+                to={{
+                    pathname: `/user/:${this.state.row.user.id}`,
+                    state: { row: this.state.row }
+                  }}
+              />
+            : null
+        } 
         <Footer />
       </div>
     )

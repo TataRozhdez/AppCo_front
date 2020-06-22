@@ -1,17 +1,27 @@
+@import '../../../resources/variables.scss';
+
 .table-users {
   margin-bottom: 96px;
   .MuiTableCell-head {
-    background: #3A80BA;
+    background: $chief-color;
     color: #FFFFFF;
     line-height: 1rem;
   }
   tbody {
     font-size: 1rem;
+    color: #1A1A1A;
     tr {
       background-color: #FFFFFF;
       &:nth-of-type(odd) {
         background-color: #F1F1F1;
       }
+    }
+  }
+  .MuiPagination-ul {
+    justify-content: center;
+    .Mui-selected {
+      background-color: $chief-color;
+      color: #FFFFFF;
     }
   }
 }
