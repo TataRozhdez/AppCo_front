@@ -1,0 +1,10 @@
+.diagram {
+  width: 36.46vw;
+  @media (max-width: 959px) {
+    width: 90%;
+  }
+  h3 {
+    font-size: 1.5rem;
+    line-height: 1.813rem;
+  }
+}

@@ -30,7 +30,7 @@ export class Charts extends Component {
         },
         datePick: {
           type: 'date',
-          value: '2019-10-02',
+          value: '',
           label: 'Or enter date'
         }
       },
@@ -138,10 +138,10 @@ export class Charts extends Component {
     return (
       <div className="charts">
         <Header />
-        <Breadcrumb 
-          links={links}
-        />
         <div className="contentUsers">
+          <Breadcrumb 
+            links={links}
+          />
           <h1>Users statistics</h1>
             {
               !this.state.formSeLection 

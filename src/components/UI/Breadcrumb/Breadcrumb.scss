@@ -1,18 +1,18 @@
 @import '../../../resources/variables.scss';
 
 .breadcrumb {
-  margin: 16px 0 24px 130px;
+  margin: 16px 0 24px 0;
   a {
     font-size: 1rem;
     line-height: 1.25rem;
     color: #CCCCCC;
     text-decoration: none;
 
-    &.active {
+     &:hover {
       color: #3A80BA;
     }
   }
   @media (max-width: $md-screen) {
-    margin: .8vw 0 1.3vw 7vw;
+    margin: .8vw 0 1.3vw 0;
   }
 }

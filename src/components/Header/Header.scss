@@ -16,4 +16,7 @@
       transition: .5s;
     }
   }
+  @media (max-width: $md-screen) {
+    padding: 10px 0 13px 3vw;
+  }
 }

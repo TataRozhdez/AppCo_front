@@ -14,18 +14,23 @@ export default function Stats(props) {
     {to: '/users', label: `${row.user.first_name} ${row.user.last_name}`, exact: false, disabled: true}
   ]
 
-
   return (
     <div>
-      <Header />
-      {console.log('props', props)}
-      <Breadcrumb 
-        links={links}
-      />
+      <Header />  
       <div className="userStatistic">
+        <Breadcrumb 
+          links={links}
+        />
         <h2>{row.user.first_name} {row.user.last_name}</h2>
         <Diagram 
-        
+          nameX={row.data}
+          numY="clicks"
+          header="Clicks"
+        />
+        <Diagram 
+          nameX={row.data}
+          numY="views"
+          header="Views"
         />
       </div>
       <Footer />
